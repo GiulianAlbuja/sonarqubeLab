@@ -74,35 +74,35 @@ Usuario: `admin`
 Contraseña: `admin`
 Después de iniciar sesión, se te pedirá que cambies la contraseña.
 
-5. Crear un Nuevo Proyecto
+### 5. Crear un Nuevo Proyecto
 - Una vez dentro, podrás crear un nuevo proyecto. Elige la opción para hacerlo manual.
 
 Nombre del Proyecto: Por ejemplo, `PRUEBA`.
 Configura las opciones globales y continúa.
-6. Configurar el Análisis del Proyecto
+### 6. Configurar el Análisis del Proyecto
 - SonarQube te preguntará cómo deseas analizar tu proyecto. Puedes elegir entre varias opciones como Jenkins, GitHub Actions, etc. Para análisis local, selecciona localmente.
 
-7. Generar un Token de Autenticación
+### 7. Generar un Token de Autenticación
 - En el primer paso del análisis local, necesitarás generar un token. Haz clic en generar y copia el token que se te muestra.
 
-8. Descargar y Configurar el Escáner
+### 8. Descargar y Configurar el Escáner
 Selecciona el tipo de análisis adecuado para tu proyecto. Si es un proyecto web, selecciona otros y luego el sistema operativo, en este caso, Windows.
 
 - Visita el enlace proporcionado para descargar el escáner de Windows. Una vez descargado, agrega la carpeta bin del escáner a las variables de entorno del sistema (PATH).
 
-9. Ejecutar el Análisis
+### 9. Ejecutar el Análisis
 - Abre una terminal en la carpeta raíz del proyecto que deseas analizar y ejecuta el comando proporcionado por SonarQube para iniciar el análisis.
 
-10. Verificar el Informe
+### 10. Verificar el Informe
 - Una vez finalizado el análisis, actualiza la página de SonarQube. El informe del análisis se reflejará en la interfaz web.
 
-Secciones del Informe en SonarQube
+## Secciones del Informe en SonarQube
 SonarQube proporciona varias secciones en el informe:
 
-Overview: Ofrece una vista general del estado del proyecto, incluyendo el número de problemas encontrados y el progreso general.
-Issues: Muestra los problemas encontrados en el código, clasificados por severidad (bloqueantes, críticos, mayores, menores).
-Security Hotspots: Identifica posibles problemas de seguridad en el código.
-Measures: Presenta métricas de calidad del código como la cobertura de pruebas y la complejidad.
-Code: Muestra el código fuente y los problemas encontrados en él.
-Activity: Proporciona un historial de los análisis y los cambios en los problemas a lo largo del tiempo.
+- Overview: Ofrece una vista general del estado del proyecto, incluyendo el número de problemas encontrados y el progreso general.
+- Issues: Muestra los problemas encontrados en el código, clasificados por severidad (bloqueantes, críticos, mayores, menores).
+- Security Hotspots: Identifica posibles problemas de seguridad en el código.
+- Measures: Presenta métricas de calidad del código como la cobertura de pruebas y la complejidad.
+- Code: Muestra el código fuente y los problemas encontrados en él.
+- Activity: Proporciona un historial de los análisis y los cambios en los problemas a lo largo del tiempo.
 
