@@ -85,7 +85,7 @@ Este archivo configura dos servicios: SonarQube y una base de datos PostgreSQL n
 
 	Nombre del Proyecto: Por ejemplo, `PRUEBA`.
 
-![image](https://github.com/user-attachments/assets/b7054218-dad2-474d-a7aa-a450a1eeb474)
+	![image](https://github.com/user-attachments/assets/b7054218-dad2-474d-a7aa-a450a1eeb474)
 
 
 - Selecciona las opciones globales y continúa.
