@@ -1,39 +1,108 @@
-# Guía de Configuración y Uso de SonarQube con Docker Compose
+# Análisis de Proyecto con SonarQube Usando Docker
 
-## Introducción
-
-SonarQube es una plataforma de análisis de código que proporciona informes sobre la calidad del código, detectando problemas de mantenimiento, seguridad y más. En esta guía, veremos cómo configurar SonarQube usando Docker Compose y cómo utilizarlo una vez que el contenedor esté en funcionamiento.
+Este documento describe los pasos para configurar y usar SonarQube en un contenedor Docker para analizar un proyecto web.
 
 ## Requisitos Previos
 
-Antes de comenzar, asegúrate de tener los siguientes elementos instalados en tu máquina:
+1. **Docker Desktop**: Asegúrate de tener Docker Desktop instalado en tu máquina. Esto te permitirá usar contenedores Docker sin necesidad de configurar manualmente bases de datos u otros componentes.
 
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+## Pasos para Configurar y Usar SonarQube
 
-## Paso 1: Crear el Archivo `docker-compose.yml`
+### 1. Descargar Docker Desktop
 
-Para configurar SonarQube con Docker Compose, necesitas crear un archivo llamado `docker-compose.yml`. Este archivo define los servicios, redes y volúmenes necesarios para ejecutar SonarQube.
+Descarga e instala Docker Desktop desde [la página oficial de Docker](https://www.docker.com/products/docker-desktop). Esto nos permitirá ejecutar SonarQube en un contenedor, simplificando la configuración.
 
-Aquí tienes un ejemplo de archivo `docker-compose.yml`:
+### 2. Descargar el Archivo `docker-compose.yaml`
+
+Crea un archivo llamado `docker-compose.yaml` con el siguiente contenido:
 
 ```yaml
-version: '3'
+version: '2'
+
 services:
   sonarqube:
-    image: sonarqube:lts
-    container_name: sonarqube
+    image: sonarqube
     ports:
       - "9000:9000"
-    volumes:
-      - sonarqube_data:/opt sonarqube/data
-      - sonarqube_extensions:/opt sonarqube/extensions
     networks:
       - sonarnet
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
 
-volumes:
-  sonarqube_data:
-  sonarqube_extensions:
+  db:
+    image: postgres
+    networks:
+      - sonarnet
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
 
 networks:
   sonarnet:
+    driver: bridge
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
+```
+Este archivo configura dos servicios: SonarQube y una base de datos PostgreSQL necesaria para SonarQube. Utiliza volúmenes para persistir datos y redes para conectar los servicios.
+
+### 3. Iniciar los Contenedores
+Navega a la carpeta donde se encuentra el archivo docker-compose.yaml y ejecuta el siguiente comando para iniciar los contenedores:
+
+`docker-compose up -d`
+Esto iniciará SonarQube y la base de datos en segundo plano.
+
+### 4. Acceder a SonarQube
+Abre un navegador web y dirígete a `http://localhost:9000`. Al acceder por primera vez, te pedirá credenciales:
+
+Usuario: `admin`
+Contraseña: `admin`
+Después de iniciar sesión, se te pedirá que cambies la contraseña.
+
+5. Crear un Nuevo Proyecto
+Una vez dentro, podrás crear un nuevo proyecto. Elige la opción para hacerlo manual.
+
+Nombre del Proyecto: Por ejemplo, `PRUEBA`.
+Configura las opciones globales y continúa.
+6. Configurar el Análisis del Proyecto
+SonarQube te preguntará cómo deseas analizar tu proyecto. Puedes elegir entre varias opciones como Jenkins, GitHub Actions, etc. Para análisis local, selecciona localmente.
+
+7. Generar un Token de Autenticación
+En el primer paso del análisis local, necesitarás generar un token. Haz clic en generar y copia el token que se te muestra.
+
+8. Descargar y Configurar el Escáner
+Selecciona el tipo de análisis adecuado para tu proyecto. Si es un proyecto web, selecciona otros y luego el sistema operativo, en este caso, Windows.
+
+Visita el enlace proporcionado para descargar el escáner de Windows. Una vez descargado, agrega la carpeta bin del escáner a las variables de entorno del sistema (PATH).
+
+9. Ejecutar el Análisis
+Abre una terminal en la carpeta raíz del proyecto que deseas analizar y ejecuta el comando proporcionado por SonarQube para iniciar el análisis.
+
+10. Verificar el Informe
+Una vez finalizado el análisis, actualiza la página de SonarQube. El informe del análisis se reflejará en la interfaz web.
+
+Secciones del Informe en SonarQube
+SonarQube proporciona varias secciones en el informe:
+
+Overview: Ofrece una vista general del estado del proyecto, incluyendo el número de problemas encontrados y el progreso general.
+Issues: Muestra los problemas encontrados en el código, clasificados por severidad (bloqueantes, críticos, mayores, menores).
+Security Hotspots: Identifica posibles problemas de seguridad en el código.
+Measures: Presenta métricas de calidad del código como la cobertura de pruebas y la complejidad.
+Code: Muestra el código fuente y los problemas encontrados en él.
+Activity: Proporciona un historial de los análisis y los cambios en los problemas a lo largo del tiempo.
+
