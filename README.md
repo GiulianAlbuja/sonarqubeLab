@@ -73,30 +73,50 @@ Este archivo configura dos servicios: SonarQube y una base de datos PostgreSQL n
 	Usuario: `admin`
 	Contraseña: `admin`
 
-![image](https://github.com/user-attachments/assets/1487ff46-5693-40da-ab84-d9ece569f6ed)
+	![image](https://github.com/user-attachments/assets/1487ff46-5693-40da-ab84-d9ece569f6ed)
 
 	Después de iniciar sesión, se te pedirá que cambies la contraseña.
 
 ### 5. Crear un Nuevo Proyecto
-- Una vez dentro, podrás crear un nuevo proyecto. Elige la opción para hacerlo manual.
+- Una vez dentro, podrás crear un nuevo proyecto. Elige la opción para hacerlo local.
+
+  ![image](https://github.com/user-attachments/assets/de8e4344-b185-4c7b-b190-9d4b7293c5af)
+
 
 	Nombre del Proyecto: Por ejemplo, `PRUEBA`.
 
+![image](https://github.com/user-attachments/assets/b7054218-dad2-474d-a7aa-a450a1eeb474)
+
+
 - Selecciona las opciones globales y continúa.
+
+  ![image](https://github.com/user-attachments/assets/3eed20f0-2d9b-484b-abb2-a9e55defd24a)
+
 	
 ### 6. Configurar el Análisis del Proyecto
 - SonarQube te preguntará cómo deseas analizar tu proyecto. Puedes elegir entre varias opciones como Jenkins, GitHub Actions, etc. Para análisis local, selecciona localmente.
 
+  ![image](https://github.com/user-attachments/assets/2234fc6d-f809-4c87-b29b-bf73096b53a3)
+
+
 ### 7. Generar un Token de Autenticación
 - En el primer paso del análisis local, necesitarás generar un token. Haz clic en generar y el servicio de mostrará el token generado.
+
+  ![image](https://github.com/user-attachments/assets/da836e77-3e0b-42f4-a968-510ed85f8af9)
+
 
 ### 8. Descargar y Configurar el Escáner
 - Selecciona el tipo de análisis adecuado para tu proyecto. Si es un proyecto web, selecciona otros y luego el sistema operativo.
 
 - Visita el enlace proporcionado para descargar el escáner. Una vez descargado, agrega la carpeta bin del escáner a las variables de entorno del sistema (PATH).
 
+![image](https://github.com/user-attachments/assets/68f57f42-78ff-4b26-967a-7b32b4ae53b0)
+
+
 ### 9. Ejecutar el Análisis
 - Abre una terminal en la carpeta raíz del proyecto que deseas analizar y ejecuta el comando proporcionado por SonarQube para iniciar el análisis.
+
+![image](https://github.com/user-attachments/assets/2cdf4ba7-0da6-45c3-9b4e-a453eb80917a)
 
 ### 10. Verificar el Informe
 - Una vez finalizado el análisis, actualiza la página de SonarQube. El informe del análisis se reflejará en la interfaz web.
