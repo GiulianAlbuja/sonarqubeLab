@@ -4,17 +4,17 @@ Este documento describe los pasos para configurar y usar SonarQube en un contene
 
 ## Requisitos Previos
 
-1. **Docker Desktop**: Asegúrate de tener Docker Desktop instalado en tu máquina. Esto te permitirá usar contenedores Docker sin necesidad de configurar manualmente bases de datos u otros componentes.
+- **Docker Desktop**: Asegúrate de tener Docker Desktop instalado en tu máquina. Esto te permitirá usar contenedores Docker sin necesidad de configurar manualmente bases de datos u otros componentes.
 
 ## Pasos para Configurar y Usar SonarQube
 
 ### 1. Descargar Docker Desktop
 
-Descarga e instala Docker Desktop desde [la página oficial de Docker](https://www.docker.com/products/docker-desktop). Esto nos permitirá ejecutar SonarQube en un contenedor, simplificando la configuración.
+- Descarga e instala Docker Desktop desde [la página oficial de Docker](https://www.docker.com/products/docker-desktop). Esto nos permitirá ejecutar SonarQube en un contenedor, simplificando la configuración.
 
-### 2. Descargar el Archivo `docker-compose.yaml`
+### 2. Configurar el Archivo `docker-compose.yaml`
 
-Crea un archivo llamado `docker-compose.yaml` con el siguiente contenido:
+- Crea un archivo llamado `docker-compose.yaml` con el siguiente contenido:
 
 ```yaml
 version: '2'
@@ -62,33 +62,38 @@ volumes:
 Este archivo configura dos servicios: SonarQube y una base de datos PostgreSQL necesaria para SonarQube. Utiliza volúmenes para persistir datos y redes para conectar los servicios.
 
 ### 3. Iniciar los Contenedores
-Navega a la carpeta donde se encuentra el archivo docker-compose.yaml y ejecuta el siguiente comando para iniciar los contenedores:
-
+- Navega a la carpeta donde se encuentra el archivo docker-compose.yaml y ejecuta el siguiente comando para iniciar los contenedores:
 `docker-compose up -d`
-Esto iniciará SonarQube y la base de datos en segundo plano.
+
+	Esto iniciará SonarQube y la base de datos en segundo plano.
 
 ### 4. Acceder a SonarQube
-Abre un navegador web y dirígete a `http://localhost:9000`. Al acceder por primera vez, te pedirá credenciales:
+- Abre un navegador web y dirígete a `http://localhost:9000`. Al acceder por primera vez, te pedirá credenciales:
 
-Usuario: `admin`
-Contraseña: `admin`
-Después de iniciar sesión, se te pedirá que cambies la contraseña.
+	Usuario: `admin`
+	Contraseña: `admin`
+
+![image](https://github.com/user-attachments/assets/1487ff46-5693-40da-ab84-d9ece569f6ed)
+
+	Después de iniciar sesión, se te pedirá que cambies la contraseña.
 
 ### 5. Crear un Nuevo Proyecto
 - Una vez dentro, podrás crear un nuevo proyecto. Elige la opción para hacerlo manual.
 
-Nombre del Proyecto: Por ejemplo, `PRUEBA`.
-Configura las opciones globales y continúa.
+	Nombre del Proyecto: Por ejemplo, `PRUEBA`.
+
+- Selecciona las opciones globales y continúa.
+	
 ### 6. Configurar el Análisis del Proyecto
 - SonarQube te preguntará cómo deseas analizar tu proyecto. Puedes elegir entre varias opciones como Jenkins, GitHub Actions, etc. Para análisis local, selecciona localmente.
 
 ### 7. Generar un Token de Autenticación
-- En el primer paso del análisis local, necesitarás generar un token. Haz clic en generar y copia el token que se te muestra.
+- En el primer paso del análisis local, necesitarás generar un token. Haz clic en generar y el servicio de mostrará el token generado.
 
 ### 8. Descargar y Configurar el Escáner
-Selecciona el tipo de análisis adecuado para tu proyecto. Si es un proyecto web, selecciona otros y luego el sistema operativo, en este caso, Windows.
+- Selecciona el tipo de análisis adecuado para tu proyecto. Si es un proyecto web, selecciona otros y luego el sistema operativo.
 
-- Visita el enlace proporcionado para descargar el escáner de Windows. Una vez descargado, agrega la carpeta bin del escáner a las variables de entorno del sistema (PATH).
+- Visita el enlace proporcionado para descargar el escáner. Una vez descargado, agrega la carpeta bin del escáner a las variables de entorno del sistema (PATH).
 
 ### 9. Ejecutar el Análisis
 - Abre una terminal en la carpeta raíz del proyecto que deseas analizar y ejecuta el comando proporcionado por SonarQube para iniciar el análisis.
